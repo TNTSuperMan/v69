@@ -24,7 +24,6 @@ export const optimizeLoop = (token: BundledToken[]): OptimizedToken => {
                     default: pos = Infinity;
                 }
             })
-            console.log(token)
             if(pos == 0) return {
                 cmd: "mul",
                 list

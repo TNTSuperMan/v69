@@ -14,7 +14,7 @@ export const BFOptimizedWASMJIT = async (source: string) => {
     console.time("wasm init");
     const instance = await WebAssembly.instantiate(exr[0], {
         js: {
-            stdout(t: number){ console.log(t); stdout += String.fromCharCode(t) },
+            stdout(t: number){ stdout += String.fromCharCode(t) },
             stdin(){ return 0 }
         }
     })
