@@ -3,26 +3,30 @@ export const toStringMul = (token: {
     list: [number, number][]
 }): string =>{
     return `
-    local.get $i
-    i32.load8_u
-    local.set $mul
+    (if (i32.load8_u (local.get $i))
+        (then
+            local.get $i
+            i32.load8_u
+            local.set $mul
 
-    ${token.list.map(e=>`
-        local.get $i
-        i32.const ${e[0]}
-        i32.add
-        local.set $p
+            ${token.list.map(e=>`
+                local.get $i
+                i32.const ${e[0]}
+                i32.add
+                local.set $p
 
-        local.get $p
-        local.get $p
-        i32.load8_u
-        i32.const ${e[1]}
-        i32.mul
-        i32.store8
-    `).join("")}
+                local.get $p
+                local.get $p
+                i32.load8_u
+                i32.const ${e[1]}
+                i32.mul
+                i32.store8
+            `).join("")}
 
-    local.get $i
-    i32.const 0
-    i32.store8
+            local.get $i
+            i32.const 0
+            i32.store8
+        )
+    )
 `
     }
