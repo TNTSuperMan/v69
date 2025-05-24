@@ -1,33 +1,26 @@
-import { compile } from "./FrontalLobe";
+import { parse } from "./TemporalLobe"
 import { bundleToken } from "./ParietalLobe/bundle";
 import { optimizeLoop } from "./ParietalLobe/loop";
-import { parse } from "./TemporalLobe"
+import { compile } from "./FrontalLobe";
 
-export const exec = (source: string, offset?: number) => {
-    const token = parse(source);
-    const bundled = bundleToken(token);
-    const optimized = optimizeLoop(bundled);
-    const wasm = compile(optimized, { offset });
-    return wasm;
-}
+export const generateWASMBytecode = (code: string) =>
+    compile(optimizeLoop(bundleToken(parse(code))));
 
-export const execRecord = async (source: string, offset?: number) => {
-    const ps = performance.now();
-    const token = parse(source);
-    const pt = performance.now() - ps;
+const encoder = new TextEncoder;
+const decoder = new TextDecoder;
+
+export const run = async (code: string, input?: string): Promise<string> => {
+    const stdout: number[] = [];
+    const stdin = encoder.encode(input);
+    let stdin_i = 0;
     
-    const bs = performance.now();
-    const bundled = bundleToken(token);
-    const bt = performance.now() - bs;
+    const wasm = await generateWASMBytecode(code);
+    const instance = await WebAssembly.instantiate(wasm, { js: {
+        stdout(e: number){ stdout.push(e) },
+        stdin: () => stdin[stdin_i++] ?? 0
+    }});
+    //@ts-ignore
+    instance.instance.exports.run();
 
-    const os = performance.now();
-    const optimized = optimizeLoop(bundled);
-    const ot = performance.now() - os;
-
-    const wr = [0, 0] as [number, number];
-    const wasm = await compile(optimized, {
-        record: wr, offset
-    });
-
-    return [wasm, pt, bt, ot, ...wr] as const;
+    return decoder.decode(new Uint8Array(stdout));
 }
