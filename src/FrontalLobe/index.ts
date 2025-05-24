@@ -61,7 +61,10 @@ const tostring = (token: OptimizedToken): string => {
     }
 }
 
-export const compile = async (token: OptimizedToken, record?: [number, number]): Promise<Uint8Array> => {
+export const compile = async (token: OptimizedToken, opt?: {
+    record?: [number, number],
+    offset?: number
+}): Promise<Uint8Array> => {
     if(!Array.isArray(token)) throw new Error("Not array");
     const ws = performance.now();
     const wat =
@@ -70,15 +73,17 @@ export const compile = async (token: OptimizedToken, record?: [number, number]):
     (import "js" "stdin" (func $stdin (result i32)))
     (memory (export "mem") 10)
     (func (export "run") (local $i i32) (local $mul i32) (local $p i32)
+        i32.const ${opt?.offset ?? 327680}
+        local.set $i
         ${token.map(e=>tostring(e)).join("\n")}
     )
 )`;
-    if(record) record[0] = performance.now() - ws;
+    if(opt?.record) opt.record[0] = performance.now() - ws;
 
     const bs = performance.now();
     const wabt = await wabt_promise;
     const binary = wabt.parseWat("out.wat", wat).toBinary({}).buffer;
-    if(record) record[1] = performance.now() - bs;
+    if(opt?.record) opt.record[1] = performance.now() - bs;
 
     return binary;
 }
