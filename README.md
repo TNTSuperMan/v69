@@ -31,5 +31,4 @@ $ bun i
 以上
 
 ## Todo
-- ビルドスクリプ
 - FrontalLobeで直接WASMにする

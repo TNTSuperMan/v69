@@ -10,5 +10,8 @@
   },
   "dependencies": {
     "wabt": "^1.0.37"
+  },
+  "scripts": {
+    "build": "bun build --minify --outdir=dist ./src/index.ts && bun build --minify --outdir=dist --format=cjs --entry-naming=index.cjs ./src/index.ts"
   }
 }
