@@ -18,8 +18,10 @@ export const toStringMul = (token: {
                 local.get $p
                 local.get $p
                 i32.load8_u
+                local.get $mul
                 i32.const ${e[1]}
                 i32.mul
+                i32.add
                 i32.store8
             `).join("")}
 
