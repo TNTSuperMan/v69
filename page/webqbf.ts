@@ -7,6 +7,24 @@ const runEl    = document.getElementById("run") as HTMLButtonElement;
 const timeEl   = document.getElementById("time") as HTMLSpanElement;
 const resultEl = document.getElementById("result") as HTMLPreElement;
 
+runEl.addEventListener("click", async () => {
+    runEl.textContent = "Running...";
+    runEl.disabled = true;
+
+    const { value: source } = sourceEl;
+    const { value: input } = inputEl;
+
+    const start = performance.now();
+    const output = await run(source, input);
+    const end = performance.now();
+
+    timeEl.textContent = (end - start).toString();
+    resultEl.textContent = output;
+    
+    runEl.textContent = "Run";
+    runEl.disabled = false;
+})
+
 setEl.addEventListener("click", () => {
     sourceEl.value = ` A mandelbrot set fractal viewer in brainfuck written by Erik Bosman
 +++++++++++++[->++>>>+++++>++>+<<<<<<]>>>>>++++++>--->>>>>>>>>>+++++++++++++++[[
@@ -153,22 +171,4 @@ setEl.addEventListener("click", () => {
 >>>]>[-]+<]]+>[-<[>>>>>>>>>]<<<<<<<<]>>>>>>>>]<<<<<<<<<[<<<<<<<<<]>>>>[-]<<<++++
 +[-[->>>>>>>>>+<<<<<<<<<]>>>>>>>>>]>>>>>->>>>>>>>>>>>>>>>>>>>>>>>>>>-<<<<<<[<<<<
 <<<<<]]>>>]`
-})
-
-runEl.addEventListener("click", async () => {
-    runEl.textContent = "Running...";
-    runEl.disabled = true;
-
-    const { value: source } = sourceEl;
-    const { value: input } = inputEl;
-
-    const start = performance.now();
-    const output = await run(source, input);
-    const end = performance.now();
-
-    timeEl.textContent = (end - start).toString();
-    resultEl.textContent = output;
-    
-    runEl.textContent = "Run";
-    runEl.disabled = false;
 })
