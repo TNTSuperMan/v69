@@ -14,7 +14,7 @@
   "scripts": {
     "build": "bun build:lib && bun build:page",
     "build:lib": "bun build --minify --outdir=dist ./src/index.ts && bun build --minify --outdir=dist --format=cjs --entry-naming=index.cjs ./src/index.ts",
-    "build:page": "bun build --minify --outdir=page/dist --public-path=/v69/ ./page/*.html",
+    "build:page": "bun build --minify --outdir=page/dist ./page/*.html",
     "serve": "bun page/*.html"
   }
 }
