@@ -12,7 +12,9 @@
     "wabt": "^1.0.37"
   },
   "scripts": {
-    "build": "bun build --minify --outdir=dist ./src/index.ts && bun build --minify --outdir=dist --format=cjs --entry-naming=index.cjs ./src/index.ts",
-    "page": "bun build --minify --outdir=page/dist ./page/*.html"
+    "build": "bun build:lib && bun build:page",
+    "build:lib": "bun build --minify --outdir=dist ./src/index.ts && bun build --minify --outdir=dist --format=cjs --entry-naming=index.cjs ./src/index.ts",
+    "build:page": "bun build --minify --outdir=page/dist --public-path=/v8/ ./page/*.html",
+    "serve": "bun page/*.html"
   }
 }

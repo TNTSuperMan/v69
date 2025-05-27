@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      - run: bun i && bun page
+      - run: bun i && bun build:page
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
