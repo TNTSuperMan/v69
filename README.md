@@ -1,7 +1,7 @@
 # V69 BrainFuck engine
 V69 is TNTSuperMan's open source Brainfuck engine.
 
-V69 implements Brainfuck asspecified in BF-1919
+V69 implements Brainfuck asspecified in [rdebath/Brainfuck](https://github.com/rdebath/Brainfuck)
 
 V69 is written in TypeScript and used in WebQBF, the open source Brainfuck runtime from TNTSuperMan.
 
