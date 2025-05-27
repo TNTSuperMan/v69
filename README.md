@@ -7,7 +7,7 @@ V69 is written in TypeScript and used in WebQBF, the open source Brainfuck runti
 
 V69 can run standanole, or can be embedded into any JavaScript and TypeScript application.
 
-V69 Project page: preparing...
+V69 Project page: [https://tntsuperman.github.io/v69/](https://tntsuperman.github.io/v69/)
 
 ## 茶番終了
 
