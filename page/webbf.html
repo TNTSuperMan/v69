@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebBF</title>
+    <style>
+        textarea{
+            resize: vertical;
+            width: 100%;
+            height: 200px;
+        }
+        pre{
+            display: inline-block;
+            border: 1px black solid;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>WebBF</h1>
+    <p>WebBF is a faster Brainfuck runtime that operates as a JIT compiler in the browser.</p>
+    <p>
+        Powered by
+        <a href="https://github.com/TNTSuperMan/v69" target="_blank">V69</a>
+        and
+        <a href="https://github.com/AssemblyScript/wabt.js" target="_blank">wabt.js</a>
+    </p>
+    <h2>Source</h2>
+    <textarea id="source"></textarea>
+    <fieldset>
+        <legend>Sample: Mandelbrot</legend>
+        <button id="set">Set</button> <a href="https://github.com/ErikDubbelboer/brainfuck-jit/blob/master/mandelbrot.bf" target="_blank">Original</a>
+    </fieldset>
+    <h2>Input</h2>
+    <textarea id="input"></textarea><br>
+    <button id="run">Run</button>
+    <h2>Result</h2>
+    <p>Time: <span id="time"></span>ms</p>
+    <pre id="result"></pre>
+    
+    <script src="./webbf.ts"></script>
+</body>
+</html>
